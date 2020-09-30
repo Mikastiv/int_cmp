@@ -1,4 +1,5 @@
 pub mod u8_i8;
+pub mod u8_i16;
 
 /// Comparison trait for integer types
 pub trait IntCmp<Other: Copy>: Copy {
