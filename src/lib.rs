@@ -1,4 +1,3 @@
-#[macro_export]
 macro_rules! impl_signed_cmp {
     // First type has to be unsigned and second signed
     // Use this when MAX value of first type is smaller than max value of second type
