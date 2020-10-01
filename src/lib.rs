@@ -118,11 +118,139 @@ macro_rules! impl_signed_cmp {
 
             #[inline(always)]
             fn cmp_lt(self, other: $i_small) -> bool {
-                if other < 0 as $i_small {
+                if other < 0 {
                     return false;
                 }
 
                 self < other as $u_big
+            }
+        }
+    };
+    
+    // First type has to be signed and second unsigned
+    // Use this when MAX value of first type is smaller than max value of second type
+    ($i_small:ty ; $u_big:ty) => {
+        impl IntCmp<$u_big> for $i_small {
+            #[inline(always)]
+            fn cmp_eq(self, other: $u_big) -> bool {
+                if self < 0 {
+                    return false;
+                }
+
+                self as $u_big == other
+            }
+
+            #[inline(always)]
+            fn cmp_ne(self, other: $u_big) -> bool {
+                if self < 0 {
+                    return true;
+                }
+
+                self as $u_big != other
+            }
+
+            #[inline(always)]
+            fn cmp_ge(self, other: $u_big) -> bool {
+                if self < 0 {
+                    return false;
+                }
+
+                self as $u_big >= other
+            }
+
+            #[inline(always)]
+            fn cmp_gt(self, other: $u_big) -> bool {
+                if self < 0 {
+                    return false;
+                }
+
+                self as $u_big > other
+            }
+
+            #[inline(always)]
+            fn cmp_le(self, other: $u_big) -> bool {
+                if self < 0 {
+                    return true;
+                }
+
+                self as $u_big <= other
+            }
+
+            #[inline(always)]
+            fn cmp_lt(self, other: $u_big) -> bool {
+                if self < 0 {
+                    return true;
+                }
+
+                self as $u_big < other
+            }
+        }
+    };
+
+    // First type has to be signed and second unsigned
+    // Use this when MAX value of first type is bigger than max value of second type
+    ($i_big:ty | $u_small:ty) => {
+        impl IntCmp<$u_small> for $i_big {
+            #[inline(always)]
+            fn cmp_eq(self, other: $u_small) -> bool {
+                if self < 0 || self > <$u_small>::MAX as $i_big {
+                    return false;
+                }
+
+                self as $u_small == other
+            }
+
+            #[inline(always)]
+            fn cmp_ne(self, other: $u_small) -> bool {
+                if self < 0 || self > <$u_small>::MAX as $i_big {
+                    return true;
+                }
+
+                self as $u_small != other
+            }
+
+            #[inline(always)]
+            fn cmp_ge(self, other: $u_small) -> bool {
+                if self < 0 {
+                    return false;
+                } else if self > <$u_small>::MAX as $i_big {
+                    return true;
+                }
+
+                self as $u_small >= other
+            }
+
+            #[inline(always)]
+            fn cmp_gt(self, other: $u_small) -> bool {
+                if self < 0 {
+                    return false;
+                } else if self > <$u_small>::MAX as $i_big {
+                    return true;
+                }
+
+                self as $u_small > other
+            }
+
+            #[inline(always)]
+            fn cmp_le(self, other: $u_small) -> bool {
+                if self < 0 {
+                    return true;
+                } else if self > <$u_small>::MAX as $i_big {
+                    return false;
+                }
+
+                self as $u_small <= other
+            }
+
+            #[inline(always)]
+            fn cmp_lt(self, other: $u_small) -> bool {
+                if self < 0 {
+                    return true;
+                } else if self > <$u_small>::MAX as $i_big {
+                    return false;
+                }
+
+                self as $u_small < other
             }
         }
     };
@@ -186,3 +314,33 @@ impl_signed_cmp! {u128 > i16}
 impl_signed_cmp! {u128 > i32}
 impl_signed_cmp! {u128 > i64}
 impl_signed_cmp! {u128 > i128}
+
+impl_signed_cmp! {i8 ; u8}
+impl_signed_cmp! {i8 ; u16}
+impl_signed_cmp! {i8 ; u32}
+impl_signed_cmp! {i8 ; u64}
+impl_signed_cmp! {i8 ; u128}
+
+impl_signed_cmp! {i16 | u8}
+impl_signed_cmp! {i16 ; u16}
+impl_signed_cmp! {i16 ; u32}
+impl_signed_cmp! {i16 ; u64}
+impl_signed_cmp! {i16 ; u128}
+
+impl_signed_cmp! {i32 | u8}
+impl_signed_cmp! {i32 | u16}
+impl_signed_cmp! {i32 ; u32}
+impl_signed_cmp! {i32 ; u64}
+impl_signed_cmp! {i32 ; u128}
+
+impl_signed_cmp! {i64 | u8}
+impl_signed_cmp! {i64 | u16}
+impl_signed_cmp! {i64 | u32}
+impl_signed_cmp! {i64 ; u64}
+impl_signed_cmp! {i64 ; u128}
+
+impl_signed_cmp! {i128 | u8}
+impl_signed_cmp! {i128 | u16}
+impl_signed_cmp! {i128 | u32}
+impl_signed_cmp! {i128 | u64}
+impl_signed_cmp! {i128 ; u128}
