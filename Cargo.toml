@@ -7,6 +7,7 @@ description = "Small library for comparing unsigned integers with signed integer
 repository = "https://github.com/Mikastiv/int_cmp"
 license = "MIT"
 readme = "README.md"
+keywords = ["compare", "cmp", "int", "integer"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
