@@ -1,3 +1,19 @@
+//! Allow for comparisons between an unsigned integer and a signed integer
+//! # Example
+//! 
+//! ```rust, no_run
+//! use int_cmp::IntCmp;
+//!
+//! let a = -25_i8;
+//! let b = 64_u8;
+//! assert!(a.cmp_lt(b));
+//!
+//! let x = -45000_i32;
+//! let y = 2560000_u64;
+//! assert!(x.cmp_ne(y));
+//! 
+//! ```
+
 macro_rules! impl_signed_cmp {
     // First type has to be unsigned and second signed
     // Use this when MAX value of first type is smaller than max value of second type
