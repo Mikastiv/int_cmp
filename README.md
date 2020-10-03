@@ -1,7 +1,7 @@
 # int_cmp
 Rust Integer Types Comparison Library
 
-# Example
+## Example
 
 ```rust, no_run
 use int_cmp::IntCmp;
