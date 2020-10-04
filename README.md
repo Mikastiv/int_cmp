@@ -14,3 +14,6 @@ let x = -45000_i32;
 let y = 2560000_u64;
 assert!(x.cmp_ne(y));
 ```
+
+# Contributing
+Any Pull Request is welcome, however small your contribution may be !
