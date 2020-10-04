@@ -1,4 +1,4 @@
-# int_cmp [![crates.io badge][crates-io-badge]][crates-io-url]
+# int_cmp
 Rust Integer Types Comparison Library
 
 ## Example
