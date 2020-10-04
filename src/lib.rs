@@ -1,6 +1,6 @@
 //! Allow for comparisons between an unsigned integer and a signed integer
 //! # Example
-//! 
+//!
 //! ```rust, no_run
 //! use int_cmp::IntCmp;
 //!
@@ -11,7 +11,7 @@
 //! let x = -45000_i32;
 //! let y = 2560000_u64;
 //! assert!(x.cmp_ne(y));
-//! 
+//!
 //! ```
 
 macro_rules! impl_signed_cmp {
@@ -142,7 +142,7 @@ macro_rules! impl_signed_cmp {
             }
         }
     };
-    
+
     // First type has to be signed and second unsigned
     // Use this when MAX value of first type is smaller than max value of second type
     ($i_small:ty ; $u_big:ty) => {
@@ -273,7 +273,7 @@ macro_rules! impl_signed_cmp {
 }
 
 /// Comparison trait for integer types
-pub trait IntCmp<Other: Integer> {
+pub trait IntCmp<Other: Integer>: Integer {
     fn cmp_eq(self, other: Other) -> bool;
 
     fn cmp_ne(self, other: Other) -> bool;
@@ -295,6 +295,7 @@ impl Integer for u16 {}
 impl Integer for u32 {}
 impl Integer for u64 {}
 impl Integer for u128 {}
+impl Integer for usize {}
 impl Integer for i8 {}
 impl Integer for i16 {}
 impl Integer for i32 {}
@@ -331,32 +332,49 @@ impl_signed_cmp! {u128 > i32}
 impl_signed_cmp! {u128 > i64}
 impl_signed_cmp! {u128 > i128}
 
+impl_signed_cmp! {usize > i8}
+impl_signed_cmp! {usize > i16}
+impl_signed_cmp! {usize > i32}
+#[cfg(target_pointer_width = "32")]
+impl_signed_cmp! {usize => i64}
+#[cfg(target_pointer_width = "64")]
+impl_signed_cmp! {usize > i64}
+impl_signed_cmp! {usize => i128}
+
 impl_signed_cmp! {i8 ; u8}
 impl_signed_cmp! {i8 ; u16}
 impl_signed_cmp! {i8 ; u32}
 impl_signed_cmp! {i8 ; u64}
 impl_signed_cmp! {i8 ; u128}
+impl_signed_cmp! {i8 ; usize}
 
 impl_signed_cmp! {i16 | u8}
 impl_signed_cmp! {i16 ; u16}
 impl_signed_cmp! {i16 ; u32}
 impl_signed_cmp! {i16 ; u64}
 impl_signed_cmp! {i16 ; u128}
+impl_signed_cmp! {i16 ; usize}
 
 impl_signed_cmp! {i32 | u8}
 impl_signed_cmp! {i32 | u16}
 impl_signed_cmp! {i32 ; u32}
 impl_signed_cmp! {i32 ; u64}
 impl_signed_cmp! {i32 ; u128}
+impl_signed_cmp! {i32 ; usize}
 
 impl_signed_cmp! {i64 | u8}
 impl_signed_cmp! {i64 | u16}
 impl_signed_cmp! {i64 | u32}
 impl_signed_cmp! {i64 ; u64}
 impl_signed_cmp! {i64 ; u128}
+#[cfg(target_pointer_width = "32")]
+impl_signed_cmp! {i64 | usize}
+#[cfg(target_pointer_width = "64")]
+impl_signed_cmp! {i64 ; usize}
 
 impl_signed_cmp! {i128 | u8}
 impl_signed_cmp! {i128 | u16}
 impl_signed_cmp! {i128 | u32}
 impl_signed_cmp! {i128 | u64}
 impl_signed_cmp! {i128 ; u128}
+impl_signed_cmp! {i128 | usize}
