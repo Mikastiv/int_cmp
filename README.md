@@ -1,4 +1,4 @@
-# int_cmp
+# int_cmp ![Crates.io](https://img.shields.io/crates/v/int_cmp)
 Rust Integer Types Comparison Library
 
 ## Example
