@@ -15,8 +15,5 @@ let y = 2560000_u64;
 assert!(x.cmp_ne(y));
 ```
 
-# TODOs
-- Add support for usize
-
 # Contributing
 Any Pull Request is welcome, however small your contribution may be!
