@@ -284,3 +284,119 @@ mod i128_u128_cmp {
         assert!(!IntCmp::cmp_lt(i128::MAX, i128::MAX as u128));
     }
 }
+
+#[cfg(target_pointer_width = "32")]
+mod i128_usize_cmp {
+    use super::*;
+    #[test]
+    fn eq() {
+        assert!(IntCmp::cmp_eq(usize::MIN as i128, usize::MIN));
+        assert!(!IntCmp::cmp_eq(-1_i128, usize::MIN));
+        assert!(!IntCmp::cmp_eq(i128::MIN, usize::MIN));
+        assert!(!IntCmp::cmp_eq(i128::MAX, usize::MAX));
+        assert!(IntCmp::cmp_eq(usize::MAX as i128, usize::MAX));
+    }
+
+    #[test]
+    fn ne() {
+        assert!(!IntCmp::cmp_ne(usize::MIN as i128, usize::MIN));
+        assert!(IntCmp::cmp_ne(-1_i128, usize::MIN));
+        assert!(IntCmp::cmp_ne(i128::MIN, usize::MIN));
+        assert!(IntCmp::cmp_ne(i128::MAX, usize::MAX));
+        assert!(!IntCmp::cmp_ne(usize::MAX as i128, usize::MAX));
+    }
+
+    #[test]
+    fn ge() {
+        assert!(IntCmp::cmp_ge(usize::MIN as i128, usize::MIN));
+        assert!(!IntCmp::cmp_ge(i128::MIN, usize::MIN));
+        assert!(IntCmp::cmp_ge(i128::MAX, usize::MIN));
+        assert!(IntCmp::cmp_ge(i128::MAX, usize::MAX));
+        assert!(IntCmp::cmp_ge(usize::MAX as i128, usize::MAX));
+    }
+
+    #[test]
+    fn gt() {
+        assert!(!IntCmp::cmp_gt(usize::MIN as i128, usize::MIN));
+        assert!(!IntCmp::cmp_gt(i128::MIN, usize::MIN));
+        assert!(IntCmp::cmp_gt(i128::MAX, usize::MIN));
+        assert!(IntCmp::cmp_gt(i128::MAX, usize::MAX));
+        assert!(!IntCmp::cmp_gt(usize::MAX as i128, usize::MAX));
+    }
+
+    #[test]
+    fn le() {
+        assert!(IntCmp::cmp_le(usize::MIN as i128, usize::MIN));
+        assert!(IntCmp::cmp_le(i128::MIN, usize::MIN));
+        assert!(!IntCmp::cmp_le(i128::MAX, usize::MIN));
+        assert!(!IntCmp::cmp_le(i128::MAX, usize::MAX));
+        assert!(IntCmp::cmp_le(usize::MAX as i128, usize::MAX));
+    }
+
+    #[test]
+    fn lt() {
+        assert!(!IntCmp::cmp_lt(usize::MIN as i128, usize::MIN));
+        assert!(IntCmp::cmp_lt(i128::MIN, usize::MIN));
+        assert!(!IntCmp::cmp_lt(i128::MAX, usize::MIN));
+        assert!(!IntCmp::cmp_lt(i128::MAX, usize::MAX));
+        assert!(!IntCmp::cmp_lt(usize::MAX as i128, usize::MAX));
+    }
+}
+
+#[cfg(target_pointer_width = "64")]
+mod i128_usize_cmp {
+    use super::*;
+    #[test]
+    fn eq() {
+        assert!(IntCmp::cmp_eq(usize::MIN as i128, usize::MIN));
+        assert!(!IntCmp::cmp_eq(-1_i128, usize::MIN));
+        assert!(!IntCmp::cmp_eq(i128::MIN, usize::MIN));
+        assert!(!IntCmp::cmp_eq(i128::MAX, usize::MAX));
+        assert!(IntCmp::cmp_eq(usize::MAX as i128, usize::MAX));
+    }
+
+    #[test]
+    fn ne() {
+        assert!(!IntCmp::cmp_ne(usize::MIN as i128, usize::MIN));
+        assert!(IntCmp::cmp_ne(-1_i128, usize::MIN));
+        assert!(IntCmp::cmp_ne(i128::MIN, usize::MIN));
+        assert!(IntCmp::cmp_ne(i128::MAX, usize::MAX));
+        assert!(!IntCmp::cmp_ne(usize::MAX as i128, usize::MAX));
+    }
+
+    #[test]
+    fn ge() {
+        assert!(IntCmp::cmp_ge(usize::MIN as i128, usize::MIN));
+        assert!(!IntCmp::cmp_ge(i128::MIN, usize::MIN));
+        assert!(IntCmp::cmp_ge(i128::MAX, usize::MIN));
+        assert!(IntCmp::cmp_ge(i128::MAX, usize::MAX));
+        assert!(IntCmp::cmp_ge(usize::MAX as i128, usize::MAX));
+    }
+
+    #[test]
+    fn gt() {
+        assert!(!IntCmp::cmp_gt(usize::MIN as i128, usize::MIN));
+        assert!(!IntCmp::cmp_gt(i128::MIN, usize::MIN));
+        assert!(IntCmp::cmp_gt(i128::MAX, usize::MIN));
+        assert!(IntCmp::cmp_gt(i128::MAX, usize::MAX));
+        assert!(!IntCmp::cmp_gt(usize::MAX as i128, usize::MAX));
+    }
+
+    #[test]
+    fn le() {
+        assert!(IntCmp::cmp_le(usize::MIN as i128, usize::MIN));
+        assert!(IntCmp::cmp_le(i128::MIN, usize::MIN));
+        assert!(!IntCmp::cmp_le(i128::MAX, usize::MIN));
+        assert!(!IntCmp::cmp_le(i128::MAX, usize::MAX));
+        assert!(IntCmp::cmp_le(usize::MAX as i128, usize::MAX));
+    }
+
+    #[test]
+    fn lt() {
+        assert!(!IntCmp::cmp_lt(usize::MIN as i128, usize::MIN));
+        assert!(IntCmp::cmp_lt(i128::MIN, usize::MIN));
+        assert!(!IntCmp::cmp_lt(i128::MAX, usize::MIN));
+        assert!(!IntCmp::cmp_lt(i128::MAX, usize::MAX));
+        assert!(!IntCmp::cmp_lt(usize::MAX as i128, usize::MAX));
+    }
+}

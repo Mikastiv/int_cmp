@@ -284,3 +284,119 @@ mod i16_u128_cmp {
         assert!(IntCmp::cmp_lt(i16::MAX, u128::MAX));
     }
 }
+
+#[cfg(target_pointer_width = "32")]
+mod i16_usize_cmp {
+    use super::*;
+    #[test]
+    fn eq() {
+        assert!(IntCmp::cmp_eq(usize::MIN as i16, usize::MIN));
+        assert!(!IntCmp::cmp_eq(-1_i16, 1_usize));
+        assert!(!IntCmp::cmp_eq(i16::MIN, usize::MIN));
+        assert!(IntCmp::cmp_eq(i16::MAX, i16::MAX as usize));
+        assert!(!IntCmp::cmp_eq(i16::MAX, usize::MAX));
+    }
+
+    #[test]
+    fn ne() {
+        assert!(!IntCmp::cmp_ne(usize::MIN as i16, usize::MIN));
+        assert!(IntCmp::cmp_ne(-1_i16, 1_usize));
+        assert!(IntCmp::cmp_ne(i16::MIN, usize::MIN));
+        assert!(!IntCmp::cmp_ne(i16::MAX, i16::MAX as usize));
+        assert!(IntCmp::cmp_ne(i16::MAX, usize::MAX));
+    }
+
+    #[test]
+    fn ge() {
+        assert!(IntCmp::cmp_ge(usize::MIN as i16, usize::MIN));
+        assert!(IntCmp::cmp_ge(i16::MAX, usize::MIN));
+        assert!(!IntCmp::cmp_ge(i16::MIN, usize::MIN));
+        assert!(IntCmp::cmp_ge(i16::MAX, i16::MAX as usize));
+        assert!(!IntCmp::cmp_ge(i16::MAX, usize::MAX));
+    }
+
+    #[test]
+    fn gt() {
+        assert!(!IntCmp::cmp_gt(usize::MIN as i16, usize::MIN));
+        assert!(IntCmp::cmp_gt(i16::MAX, usize::MIN));
+        assert!(!IntCmp::cmp_gt(i16::MIN, usize::MIN));
+        assert!(!IntCmp::cmp_gt(i16::MAX, i16::MAX as usize));
+        assert!(!IntCmp::cmp_gt(i16::MAX, usize::MAX));
+    }
+
+    #[test]
+    fn le() {
+        assert!(IntCmp::cmp_le(usize::MIN as i16, usize::MIN));
+        assert!(IntCmp::cmp_le(-1_i16, usize::MIN));
+        assert!(IntCmp::cmp_le(i16::MIN, usize::MIN));
+        assert!(IntCmp::cmp_le(i16::MAX, i16::MAX as usize));
+        assert!(IntCmp::cmp_le(i16::MAX, usize::MAX));
+    }
+
+    #[test]
+    fn lt() {
+        assert!(!IntCmp::cmp_lt(usize::MIN as i16, usize::MIN));
+        assert!(IntCmp::cmp_lt(-1_i16, usize::MIN));
+        assert!(IntCmp::cmp_lt(i16::MIN, usize::MIN));
+        assert!(!IntCmp::cmp_lt(i16::MAX, i16::MAX as usize));
+        assert!(IntCmp::cmp_lt(i16::MAX, usize::MAX));
+    }
+}
+
+#[cfg(target_pointer_width = "64")]
+mod i16_usize_cmp {
+    use super::*;
+    #[test]
+    fn eq() {
+        assert!(IntCmp::cmp_eq(usize::MIN as i16, usize::MIN));
+        assert!(!IntCmp::cmp_eq(-1_i16, 1_usize));
+        assert!(!IntCmp::cmp_eq(i16::MIN, usize::MIN));
+        assert!(IntCmp::cmp_eq(i16::MAX, i16::MAX as usize));
+        assert!(!IntCmp::cmp_eq(i16::MAX, usize::MAX));
+    }
+
+    #[test]
+    fn ne() {
+        assert!(!IntCmp::cmp_ne(usize::MIN as i16, usize::MIN));
+        assert!(IntCmp::cmp_ne(-1_i16, 1_usize));
+        assert!(IntCmp::cmp_ne(i16::MIN, usize::MIN));
+        assert!(!IntCmp::cmp_ne(i16::MAX, i16::MAX as usize));
+        assert!(IntCmp::cmp_ne(i16::MAX, usize::MAX));
+    }
+
+    #[test]
+    fn ge() {
+        assert!(IntCmp::cmp_ge(usize::MIN as i16, usize::MIN));
+        assert!(IntCmp::cmp_ge(i16::MAX, usize::MIN));
+        assert!(!IntCmp::cmp_ge(i16::MIN, usize::MIN));
+        assert!(IntCmp::cmp_ge(i16::MAX, i16::MAX as usize));
+        assert!(!IntCmp::cmp_ge(i16::MAX, usize::MAX));
+    }
+
+    #[test]
+    fn gt() {
+        assert!(!IntCmp::cmp_gt(usize::MIN as i16, usize::MIN));
+        assert!(IntCmp::cmp_gt(i16::MAX, usize::MIN));
+        assert!(!IntCmp::cmp_gt(i16::MIN, usize::MIN));
+        assert!(!IntCmp::cmp_gt(i16::MAX, i16::MAX as usize));
+        assert!(!IntCmp::cmp_gt(i16::MAX, usize::MAX));
+    }
+
+    #[test]
+    fn le() {
+        assert!(IntCmp::cmp_le(usize::MIN as i16, usize::MIN));
+        assert!(IntCmp::cmp_le(-1_i16, usize::MIN));
+        assert!(IntCmp::cmp_le(i16::MIN, usize::MIN));
+        assert!(IntCmp::cmp_le(i16::MAX, i16::MAX as usize));
+        assert!(IntCmp::cmp_le(i16::MAX, usize::MAX));
+    }
+
+    #[test]
+    fn lt() {
+        assert!(!IntCmp::cmp_lt(usize::MIN as i16, usize::MIN));
+        assert!(IntCmp::cmp_lt(-1_i16, usize::MIN));
+        assert!(IntCmp::cmp_lt(i16::MIN, usize::MIN));
+        assert!(!IntCmp::cmp_lt(i16::MAX, i16::MAX as usize));
+        assert!(IntCmp::cmp_lt(i16::MAX, usize::MAX));
+    }
+}

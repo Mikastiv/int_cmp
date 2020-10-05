@@ -284,3 +284,119 @@ mod i32_u128_cmp {
         assert!(IntCmp::cmp_lt(i32::MAX, u128::MAX));
     }
 }
+
+#[cfg(target_pointer_width = "32")]
+mod i32_usize_cmp {
+    use super::*;
+    #[test]
+    fn eq() {
+        assert!(IntCmp::cmp_eq(usize::MIN as i32, usize::MIN));
+        assert!(!IntCmp::cmp_eq(-1_i32, usize::MIN));
+        assert!(!IntCmp::cmp_eq(i32::MIN, usize::MIN));
+        assert!(!IntCmp::cmp_eq(i32::MAX, usize::MAX));
+        assert!(IntCmp::cmp_eq(i32::MAX, i32::MAX as usize));
+    }
+
+    #[test]
+    fn ne() {
+        assert!(!IntCmp::cmp_ne(usize::MIN as i32, usize::MIN));
+        assert!(IntCmp::cmp_ne(-1_i32, usize::MIN));
+        assert!(IntCmp::cmp_ne(i32::MIN, usize::MIN));
+        assert!(IntCmp::cmp_ne(i32::MAX, usize::MAX));
+        assert!(!IntCmp::cmp_ne(i32::MAX, i32::MAX as usize));
+    }
+
+    #[test]
+    fn ge() {
+        assert!(IntCmp::cmp_ge(usize::MIN as i32, usize::MIN));
+        assert!(!IntCmp::cmp_ge(i32::MIN, usize::MIN));
+        assert!(IntCmp::cmp_ge(i32::MAX, usize::MIN));
+        assert!(!IntCmp::cmp_ge(i32::MAX, usize::MAX));
+        assert!(IntCmp::cmp_ge(i32::MAX, i32::MAX as usize));
+    }
+
+    #[test]
+    fn gt() {
+        assert!(!IntCmp::cmp_gt(usize::MIN as i32, usize::MIN));
+        assert!(!IntCmp::cmp_gt(i32::MIN, usize::MIN));
+        assert!(IntCmp::cmp_gt(i32::MAX, usize::MIN));
+        assert!(!IntCmp::cmp_gt(i32::MAX, usize::MAX));
+        assert!(!IntCmp::cmp_gt(i32::MAX, i32::MAX as usize));
+    }
+
+    #[test]
+    fn le() {
+        assert!(IntCmp::cmp_le(usize::MIN as i32, usize::MIN));
+        assert!(IntCmp::cmp_le(i32::MIN, usize::MIN));
+        assert!(!IntCmp::cmp_le(i32::MAX, usize::MIN));
+        assert!(IntCmp::cmp_le(i32::MAX, usize::MAX));
+        assert!(IntCmp::cmp_le(i32::MAX, i32::MAX as usize));
+    }
+
+    #[test]
+    fn lt() {
+        assert!(!IntCmp::cmp_lt(usize::MIN as i32, usize::MIN));
+        assert!(IntCmp::cmp_lt(i32::MIN, usize::MIN));
+        assert!(!IntCmp::cmp_lt(i32::MAX, usize::MIN));
+        assert!(IntCmp::cmp_lt(i32::MAX, usize::MAX));
+        assert!(!IntCmp::cmp_lt(i32::MAX, i32::MAX as usize));
+    }
+}
+
+#[cfg(target_pointer_width = "64")]
+mod i32_usize_cmp {
+    use super::*;
+    #[test]
+    fn eq() {
+        assert!(IntCmp::cmp_eq(usize::MIN as i32, usize::MIN));
+        assert!(!IntCmp::cmp_eq(-1_i32, 1_usize));
+        assert!(!IntCmp::cmp_eq(i32::MIN, usize::MIN));
+        assert!(IntCmp::cmp_eq(i32::MAX, i32::MAX as usize));
+        assert!(!IntCmp::cmp_eq(i32::MAX, usize::MAX));
+    }
+
+    #[test]
+    fn ne() {
+        assert!(!IntCmp::cmp_ne(usize::MIN as i32, usize::MIN));
+        assert!(IntCmp::cmp_ne(-1_i32, 1_usize));
+        assert!(IntCmp::cmp_ne(i32::MIN, usize::MIN));
+        assert!(!IntCmp::cmp_ne(i32::MAX, i32::MAX as usize));
+        assert!(IntCmp::cmp_ne(i32::MAX, usize::MAX));
+    }
+
+    #[test]
+    fn ge() {
+        assert!(IntCmp::cmp_ge(usize::MIN as i32, usize::MIN));
+        assert!(IntCmp::cmp_ge(i16::MAX, usize::MIN));
+        assert!(!IntCmp::cmp_ge(i32::MIN, usize::MIN));
+        assert!(IntCmp::cmp_ge(i32::MAX, i32::MAX as usize));
+        assert!(!IntCmp::cmp_ge(i32::MAX, usize::MAX));
+    }
+
+    #[test]
+    fn gt() {
+        assert!(!IntCmp::cmp_gt(usize::MIN as i32, usize::MIN));
+        assert!(IntCmp::cmp_gt(i16::MAX, usize::MIN));
+        assert!(!IntCmp::cmp_gt(i32::MIN, usize::MIN));
+        assert!(!IntCmp::cmp_gt(i32::MAX, i32::MAX as usize));
+        assert!(!IntCmp::cmp_gt(i32::MAX, usize::MAX));
+    }
+
+    #[test]
+    fn le() {
+        assert!(IntCmp::cmp_le(usize::MIN as i32, usize::MIN));
+        assert!(!IntCmp::cmp_le(i16::MAX, usize::MIN));
+        assert!(IntCmp::cmp_le(i32::MIN, usize::MIN));
+        assert!(IntCmp::cmp_le(i32::MAX, i32::MAX as usize));
+        assert!(IntCmp::cmp_le(i32::MAX, usize::MAX));
+    }
+
+    #[test]
+    fn lt() {
+        assert!(!IntCmp::cmp_lt(usize::MIN as i32, usize::MIN));
+        assert!(!IntCmp::cmp_lt(i16::MAX, usize::MIN));
+        assert!(IntCmp::cmp_lt(i32::MIN, usize::MIN));
+        assert!(!IntCmp::cmp_lt(i32::MAX, i32::MAX as usize));
+        assert!(IntCmp::cmp_lt(i32::MAX, usize::MAX));
+    }
+}
